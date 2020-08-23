@@ -3,22 +3,24 @@ package campusMap;
 import java.util.Scanner;
 
 public class MAP {
+	
 	// import the map data
 	MapData mapdata = new MapData();
-	private int[] list = mapdata.list; // Used to store the data from the text file
-	String[] label = mapdata.label;
+	private int[] list = mapdata.list;
+	private String[] label = mapdata.label;
 	
 	// Set properties of the map
-	int num = 15; // The amount of the vertices
-	int[][] W = new int[num][num]; // The weight matrix for the vertices
-	int[] R = new int[num]; // The route index array used for store the route index
-	int start, end; // The start and end point
-	String Start, End;
+	public int num = 15; // The amount of the vertices
+	public int[][] W = new int[num][num]; // The weight matrix for the vertices
+	public int[] R = new int[num]; // The route index array used for store the route index
+	public int start, end; // The start and end point
+	public String Start, End;
 	
 	public void initialize() {
 		for (int i = 0; i < num; i++) 
 			for (int j = 0; j < num; j++) 
-				this.W[i][j] = 10000; // Can't set them as Integer.MAX because of the Integer overflow
+				// Don't set them as Integer.MAX because of the Integer overflow
+				this.W[i][j] = 10000; 
 		for (int i = 0; i < num; i++) this.R[i] = -1;
 	}
 	
@@ -38,9 +40,12 @@ public class MAP {
 	
 	public void setStartandEnd() {
 		Scanner input = new Scanner(System.in);
+		
 		System.out.println("The accepted inputs are as follow:");
-		System.out.println("23a, 23h, 24, 26, 28, 30, 38, 41, 42, 43, 50, 52, 57, 59, 60");
-		System.out.println("Please input the START point");
+		for (String str : this.label) 
+			System.out.print(str + ", ");
+		System.out.println("\nPlease input the START point");
+		
 		this.Start = input.next();
 		System.out.println("Please input the END point");
 		this.End = input.next();
@@ -59,7 +64,7 @@ public class MAP {
 	}
 	
 	public void outPutRoute() {
-		String[] Route = new String[10];   // The real route array that store the real name of the buildings
+		String[] Route = new String[10];// The real route array that store the real name of the buildings
 		int p = this.end;
 		Route[0] = label[end];
 		int count = 1;
